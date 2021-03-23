@@ -2,6 +2,8 @@
 
 https://rikoten.github.io/kouhou-survey
 
+広報物調査の Excel ファイルを JSON に変換するアレ
+
 ## 使い方
 
 1. すべての広報物調査をまとめてドラッグ・ドロップ

@@ -52,8 +52,11 @@ const App = () => {
 const FileDragArea: React.FunctionComponent<{
     setExcelFiles: (excelFiles: ExcelFile[]) => unknown
 }> = ({ setExcelFiles }) => {
+    const [ dragging, setDragging ] = useState(false)
+
     const onDropHandler: React.DragEventHandler = async e => {
         e.preventDefault()
+        setDragging(false)
         const excelFiles: ExcelFile[] = await Promise.all(Array.from(e.dataTransfer.files).map(async it => ({
             filename: it.name,
             data: new Uint8Array(await it.arrayBuffer())
@@ -61,11 +64,21 @@ const FileDragArea: React.FunctionComponent<{
         setExcelFiles(excelFiles)
     }
 
-    const preventDefaultHandler: React.DragEventHandler = e => {
+    const onDragOverHandler: React.DragEventHandler = e => {
         e.preventDefault()
+        setDragging(true)
     }
 
-    return <div className='FileDragArea' onDrop={ onDropHandler } onDragOver={ preventDefaultHandler }>
+    const onDragLeaveHandler: React.DragEventHandler = () => {
+        setDragging(false)
+    }
+
+    return <div
+        className={ 'FileDragArea' + (dragging ? ' drag' : '')}
+        onDrop={ onDropHandler }
+        onDragOver={ onDragOverHandler }
+        onDragLeave={ onDragLeaveHandler }
+    >
         広報物調査をまとめてドラッグ・ドロップ
     </div>
 }
@@ -76,7 +89,7 @@ const UploadedFileList: React.FunctionComponent<{
     return <div className='UploadedFileList'>
         <h2>追加済みのファイル ({ parsedExcel.length } 件追加済み)</h2>
         <ul>{
-            parsedExcel.map(it => <li>{ it.filename }</li>)
+            parsedExcel.map(it => <li key={it.filename}>{ it.filename }</li>)
         }</ul>
     </div>
 }

@@ -35,6 +35,10 @@
     display: flex;
     align-items: center;
     justify-content: center;
+
+    &.drag {
+        border-width: 10px;
+    }
 }
 
 .UploadedFileList {
@@ -92,6 +96,12 @@
         color: white;
 
         background: var(--main-color);
+    }
+
+    a[data-disabled=true] {
+        background: lightgray;
+        color: white;
+        cursor: default;
     }
 }
 

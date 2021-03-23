@@ -1,3 +1,104 @@
-#app {
-    font-weight: bold;
+* {
+    box-sizing: border-box;
+    margin: 0;
+    font-family: sans-serif;
+
+    --main-color: #46D3FF;
+    --text-color: #707070;
+
+    color: var(--text-color);
+}
+
+.App {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    grid-gap: 1rem;
+
+    margin: 1rem;
+
+    h1 {
+        margin-top: 1rem;
+        font-size: 1.25rem;
+        line-height: 1.5rem;
+    }
+}
+
+.FileDragArea {
+    height: 300px;
+    width: 90%;
+    margin: 2rem auto 0 auto;
+
+    border: solid 4px var(--main-color);
+    border-radius: 10px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.UploadedFileList {
+    h2 {
+        margin-top: 2rem;
+        font-size: 1.25rem;
+    }
+
+    ul {
+        margin-top: 1rem;
+        padding: 0;
+
+        list-style: none;
+
+        display: grid;
+        grid-template-columns: repeat(auto-fill, 12rem);
+        column-gap: 2rem;
+    }
+
+    li {
+        display: inline;
+        overflow-x: hidden;
+        white-space: nowrap;
+    }
+}
+
+.BeforeConvertChecklist {
+    margin-top: calc(2rem + 1.5rem + 1rem);
+
+    h2 {
+        font-size: 1.25rem;
+    }
+
+    ul {
+        margin-top: 1rem;
+    }
+}
+
+.DownloadButton {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    a {
+        margin-top: 1rem;
+        display: block;
+        width: 15rem;
+        height: 3rem;
+        line-height: 3rem;
+        text-align: center;
+        border-radius: 25px;
+
+        text-decoration: none;
+        font-weight: bold;
+        color: white;
+
+        background: var(--main-color);
+    }
+}
+
+.Preview {
+    height: 25rem;
+    border: solid 1px var(--text-color);
+    margin-top: 2rem;
+    padding: .5rem 1rem;
+    overflow: auto;
 }

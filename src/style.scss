@@ -102,3 +102,20 @@
     padding: .5rem 1rem;
     overflow: auto;
 }
+
+.HelpButton {
+    position: fixed;
+    right: 3rem;
+    bottom: 2rem;
+    height: 4rem;
+    width: 4rem;
+    border-radius: 4rem;
+    background: var(--main-color);
+    text-align: center;
+
+    font-weight: bold;
+    font-size: 2rem;
+    color: white;
+    text-decoration: none;
+    line-height: 4rem;
+}

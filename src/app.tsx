@@ -45,6 +45,7 @@ const App = () => {
             <DownloadButton parsedExcel={ parsedExcel } />
             <Preview parsedExcel={ parsedExcel } />
         </div>
+        <HelpButton />
     </div>
 }
 
@@ -65,7 +66,7 @@ const FileDragArea: React.FunctionComponent<{
     }
 
     return <div className='FileDragArea' onDrop={ onDropHandler } onDragOver={ preventDefaultHandler }>
-        広報物調査をまとめてドラッグアンドドロップ
+        広報物調査をまとめてドラッグ・ドロップ
     </div>
 }
 
@@ -109,5 +110,9 @@ const Preview: React.FunctionComponent<{
         <pre><code>{ JSON.stringify(parsedExcel.map(it => it.parsedData), null, 2) }</code></pre>
     </div>
 }
+
+const HelpButton = () => <a href='https://github.com/Rikoten/kouhou-survey/blob/main/README.md' target='_blank' className='HelpButton'>
+    ?
+</a>
 
 render(<App />, document.getElementById('app'))

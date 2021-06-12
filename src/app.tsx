@@ -24,7 +24,7 @@ const App = () => {
         try {
             const parsed = excelFiles.map(it => ({
                 filename: it.filename,
-                parsedData: parse(it.data)
+                parsedData: parse(it.data, it.filename)
             }))
             const sortedFilenames = parsed.map(it => it.filename).sort()
             const sortedItems = sortedFilenames.map(filename => parsed.find(item => item.filename == filename)) as ParsedExcel[]

@@ -4,7 +4,7 @@
     "build": "webpack --mode production"
   },
   "dependencies": {
-    "structured-xlsx-parser": "git+https://github.com/comame/Structured-XLSX-Parser.git"
+    "structured-xlsx-parser": "git+https://github.com/comame/Structured-XLSX-Parser.git#main"
   },
   "devDependencies": {
     "@types/react": "^16.14.5",

@@ -1,8 +1,8 @@
 export type ParsedExcel = {
     filename: string,
-    parsedData: FlatJsonObject
+    parsedData: JsonObject
 }
 
-type FlatJsonObject = {
-    [key: string]: string|undefined
+type JsonObject = {
+    [key: string]: JsonObject|string|undefined
 }

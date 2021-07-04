@@ -3,6 +3,7 @@ import { render } from 'react-dom'
 
 import { Survey } from './Survey'
 import { ExcelLoader } from './ExcelLoader'
+import { Pamphlet } from './Pamphlet'
 
 import { ParsedExcel } from './types'
 
@@ -22,6 +23,7 @@ const App = () => {
         </div>
         <div className='Right'>
             <Survey parsedExcels={ parsedExcels } />
+            <Pamphlet parsedExcels={ parsedExcels } />
         </div>
         <HelpButton />
     </div>

@@ -4,6 +4,7 @@
     "build": "webpack --mode production"
   },
   "dependencies": {
+    "iconv-lite": "^0.6.3",
     "structured-xlsx-parser": "git+https://github.com/comame/Structured-XLSX-Parser.git#main"
   },
   "devDependencies": {

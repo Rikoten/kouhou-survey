@@ -65,18 +65,6 @@
     }
 }
 
-.BeforeConvertChecklist {
-    margin-top: calc(2rem + 1.5rem + 1rem);
-
-    h2 {
-        font-size: 1.25rem;
-    }
-
-    ul {
-        margin-top: 1rem;
-    }
-}
-
 .DownloadButton {
     display: flex;
     justify-content: center;
@@ -85,8 +73,9 @@
     a {
         margin-top: 1rem;
         display: block;
-        width: 15rem;
+        width: max-content;
         height: 3rem;
+        padding: 0 1rem;
         line-height: 3rem;
         text-align: center;
         border-radius: 25px;

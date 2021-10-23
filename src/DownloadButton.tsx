@@ -5,7 +5,8 @@ export const DownloadButton: React.FunctionComponent<{
     file: string|Uint8Array,
     filename: string,
     text: string
-}> = ({ file, filename, disabled, text }) => {
+}> = ({ file, filename, text }) => {
+    const disabled = true
     if (typeof file === 'string') {
         const onClickHandler: React.MouseEventHandler = e => {
             if (disabled) e.preventDefault()

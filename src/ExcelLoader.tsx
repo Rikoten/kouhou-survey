@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import { parse } from 'structured-xlsx-parser'
 import { ParsedExcel } from './types'
 
 type ExcelFile = {
@@ -9,33 +8,54 @@ type ExcelFile = {
 
 export const ExcelLoader: React.FunctionComponent<{
     parsedExcels: ParsedExcel[],
-    setParsedExcels: (parsedExcels: ParsedExcel[]) => unknown
+    setParsedExcels: (parsedExcels: ParsedExcel[]) => unknown,
 }> = ({ parsedExcels, setParsedExcels }) => {
     const [ excelFiles, setExcelFiles ] = useState<ExcelFile[]>([])
+    const [ loading, setLoading ] = useState(false)
 
     useEffect(() => {
-        try {
-            const parsed = excelFiles.map(it => ({
-                filename: it.filename,
-                parsedData: parse(it.data, it.filename)
-            }))
-            const sortedFilenames = parsed.map(it => it.filename).sort()
-            const sortedItems = sortedFilenames.map(filename => parsed.find(item => item.filename == filename)) as ParsedExcel[]
-            setParsedExcels(sortedItems)
-        } catch (err) {
-            alert('リロードしてね\n' + err)
+        if (excelFiles.length == 0) {
+            setParsedExcels([])
+            return
         }
+        setLoading(true)
+        const parsed: ParsedExcel[] = []
+        let workerNum = 0
+        for (let i = 0; i < excelFiles.length; i += 5) {
+            const worker = new Worker('./worker.js')
+            worker.postMessage(excelFiles.slice(i, i + 5))
+            workerNum += 1
+
+            worker.addEventListener('message', (e) => {
+                worker.terminate()
+                workerNum -= 1
+                setLoading(false)
+                const [ err, data ] = e.data
+                if (err) {
+                    alert('リロードしてね\n' + err)
+                    return
+                }
+                parsed.push(...data)
+
+                if (workerNum == 0) {
+                    console.log('parse finish')
+                    setParsedExcels(parsed)
+                }
+            })
+        }
+
     }, [ excelFiles ])
 
     return <div>
-        <FileDragArea setExcelFiles={ setExcelFiles }/>
+        <FileDragArea setExcelFiles={ setExcelFiles } loading={ loading } />
         <UploadedFileList parsedExcel={ parsedExcels } />
     </div>
 }
 
 const FileDragArea: React.FunctionComponent<{
-    setExcelFiles: (excelFiles: ExcelFile[]) => unknown
-}> = ({ setExcelFiles }) => {
+    setExcelFiles: (excelFiles: ExcelFile[]) => unknown,
+    loading: boolean
+}> = ({ setExcelFiles, loading }) => {
     const [ dragging, setDragging ] = useState(false)
 
     const onDropHandler: React.DragEventHandler = async e => {
@@ -63,7 +83,7 @@ const FileDragArea: React.FunctionComponent<{
         onDragOver={ onDragOverHandler }
         onDragLeave={ onDragLeaveHandler }
     >
-        広報物調査をまとめてドラッグ・ドロップ
+        { loading ? '変換中...' : '広報物調査をまとめてドラッグ・ドロップ' }
     </div>
 }
 

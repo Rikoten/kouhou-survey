@@ -1,12 +1,15 @@
 const path = require('path')
 
 module.exports = {
-    entry: './src/app.tsx',
+    entry: {
+        bundle: './src/app.tsx',
+        worker: './src/worker.ts'
+    },
     mode: 'development',
     devtool: 'source-map',
     output: {
         path: path.resolve(__dirname, 'docs'),
-        filename: 'bundle.js'
+        filename: '[name].js'
     },
     resolve: {
         extensions: [ '.js', '.ts', '.tsx', '.json' ]
